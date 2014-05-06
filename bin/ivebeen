@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require "thor"
+require "exif2geojson"
+
+class IveBeenApp < Thor
+  desc "generate", "Extract EXIF from photo and generate geojson file"
+  def generate(path, file="places.geojson")
+    info = extract_image_info(path)
+    File.open(file, "w") do |f|
+        f.write(info)
+    end
+  end
+end
+
+IveBeenApp.start(ARGV)
